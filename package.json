@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack/webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
     "autoprefixer": "^9.7.6",
+    "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.0",
@@ -98,6 +100,18 @@
       "block-closing-brace-newline-before": "always-multi-line",
       "block-opening-brace-newline-after": "always-multi-line",
       "indentation": 4
+    }
+  },
+  "postcss": {
+    "map": true,
+    "plugins": {
+      "postcss-preset-env": {
+        "features": {
+          "nesting-rules": true
+        }
+      },
+      "autoprefixer": {},
+      "postcss-import": {}
     }
   }
 }
