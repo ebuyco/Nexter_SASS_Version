@@ -32,31 +32,22 @@ const css = {
 }
 
 const sass = {
-      test: /\.s(ac)ss$/i,
-      use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-              loader: 'css-loader',
-              options: {
-                    sourceMap: true,
-                    importLoaders: 1
-              },
-          },
-          {
-                loader: 'sass-loader',
-                options: {
-                        sourceMaps: true,
-                }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-                plugins(){ return [autoprefixer];},
-                sourceMap: true,
-            }
-          }
-      ],
+  test: /\.(scss|css)$/,
+  use: [
+    'style-loader',
+    { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
+    { loader: 'postcss-loader', options: { sourceMap: true } },
+    { loader: 'sass-loader', options: { sourceMap: true } },
+    {
+      loader: 'postcss-loader',
+      options: {
+          plugins(){ return [autoprefixer];},
+          sourceMap: true,
+      }
+    }
+
+  ],
+
       exclude: /\/module\.css$/
 }
 
@@ -113,13 +104,15 @@ const config = {
           filename: 'style.css',
           chunkFilename: 'style.css'
         }),
-        // new CopyPlugin([
-        //   {
-        //     from: paths.static,
-        //     to: 'assets',
+        new CopyPlugin({
+          patterns: [
+            {
+              from: paths.src,
+              to: paths.build,
+            },
+          ],
 
-        //   },
-        // ]),
+        }),
         new HtmlWebpackPlugin({
           title: 'Nexter',
           favicon: paths.src + '/images/favicon.png',

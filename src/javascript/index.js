@@ -1,1 +1,1 @@
-console.log(test);
+import '../sass/_home.scss';
